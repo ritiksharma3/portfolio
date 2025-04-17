@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ritik Sharma - Futuristic Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --primary: #00f7ff;
+            --secondary: #ff00e4;
+            --bg-dark: #0a0a14;
+            --bg-light: #141424;
+            --text: #e0e0ff;
+            --text-dim: #a0a0c0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            perspective: 1000px;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            top: 0;
+            left: 0;
+        }
+
+        .neon-border {
+            position: relative;
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem 0;
+            background: rgba(10, 10, 20, 0.7);
+            box-shadow: 0 0 15px rgba(0, 247, 255, 0.1);
+        }
+
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            z-index: -1;
+            opacity: 0.7;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+
+        header {
+            text-align: center;
+            padding: 6rem 1rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 5px var(--primary); }
+            to { text-shadow: 0 0 20px var(--primary), 0 0 30px var(--secondary); }
+        }
+
+        header p, header a {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.3rem;
+            transition: all 0.3s ease;
+        }
+
+        header a:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(0, 247, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary);
+        }
+
+        .contact-icon:hover {
+            background: rgba(0, 247, 255, 0.3);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        section {
+            padding: 2rem 1rem;
+            max-width: 1100px;
+            margin: auto;
+            position: relative;
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            letter-spacing: 1px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), transparent);
+        }
+
+        .section-content {
+            margin-bottom: 3rem;
+        }
+
+        .job, .project, .education-entry {
+            background: rgba(20, 20, 36, 0.7);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 3px solid var(--primary);
+        }
+
+        .job:hover, .project:hover, .education-entry:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 247, 255, 0.2);
+        }
+
+        h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .job p:first-of-type, .education-entry p:first-of-type {
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+            list-style-type: none;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        .skills, .awards, .languages {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .badge {
+            background: linear-gradient(45deg, var(--bg-light), #1a1a3a);
+            color: var(--primary);
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 10px rgba(0, 247, 255, 0.1);
+        }
+
+        .badge:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        footer {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            font-size: 1rem;
+            color: var(--text-dim);
+            position: relative;
+            border-top: 1px solid rgba(0, 247, 255, 0.2);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--primary), transparent);
+        }
+
+        .floating-cube {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.2;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, 50px) rotate(90deg); }
+            50% { transform: translate(0, 100px) rotate(180deg); }
+            75% { transform: translate(-50px, 50px) rotate(270deg); }
+        }
+
+        .cube-1 {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .cube-2 {
+            top: 60%;
+            right: 15%;
+            animation-delay: 3s;
+            animation-duration: 18s;
+        }
+
+        .cube-3 {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 6s;
+            animation-duration: 12s;
+        }
+
+        .nav-dots {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-dot.active {
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-dot::after {
+            content: attr(data-section);
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 247, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .nav-dot:hover::after {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-dots {
+                display: none;
+            }
+
+            section {
+                padding: 1.5rem 1rem;
+            }
+
+            .contact-icons {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    
+    <!-- Floating 3D cubes in background -->
+    <div class="floating-cube cube-1"></div>
+    <div class="floating-cube cube-2"></div>
+    <div class="floating-cube cube-3"></div>
+    
+    <!-- Navigation dots -->
+    <div class="nav-dots">
+        <div class="nav-dot active" data-section="About" onclick="scrollToSection('about')"></div>
+        <div class="nav-dot" data-section="Experience" onclick="scrollToSection('experience')"></div>
+        <div class="nav-dot" data-section="Education" onclick="scrollToSection('education')"></div>
+        <div class="nav-dot" data-section="Projects" onclick="scrollToSection('projects')"></div>
+        <div class="nav-dot" data-section="Skills" onclick="scrollToSection('skills')"></div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <h1>RITIK SHARMA</h1>
+            <p class="tagline">SOFTWARE DEVELOPER | FULL-STACK ENGINEER | INNOVATOR</p>
+            <div class="contact-info">
+                <p>📍 Jaipur, Rajasthan | 📞 +91-9461714119</p>
+                <div class="contact-icons">
+                    <a href="mailto:mailing2ritik@gmail.com" class="contact-icon" title="Email">✉️</a>
+                    <a href="https://www.linkedin.com/in/ritik-sharma-4753aa246/" target="_blank" class="contact-icon" title="LinkedIn">🔗</a>
+                    <a href="https://github.com/ritiksharma3" target="_blank" class="contact-icon" title="GitHub">💻</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>// ABOUT_ME</h2>
+            <div class="section-content neon-border">
+                <p>I'm a passionate <span class="highlight">Software Developer</span> with expertise in building cutting-edge web and mobile applications. My journey in technology combines strong foundations in software engineering with innovative problem-solving skills.</p>
+                <p>Specializing in <span class="highlight">ReactJS, PHP Laravel, Flutter, and Python</span>, I create seamless digital experiences that bridge functionality with aesthetic design. My approach merges technical precision with creative thinking to deliver solutions that exceed expectations.</p>
+                <p>When I'm not coding, I'm exploring the latest in AI advancements or contributing to open-source projects that push technological boundaries.</p>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>// PROFESSIONAL_JOURNEY</h2>
+            <div class="section-content">
+                <div class="job neon-border">
+                    <h3>CINESTAR PVT LTD (BIGMOVIES), NEPAL</h3>
+                    <p><strong>SOFTWARE DEVELOPER</strong> | DEC 2023 - PRESENT</p>
+                    <ul>
+                        <li>Engineered a comprehensive cinema management system handling inventory tracking, daily operations, and multi-audi event coordination</li>
+                        <li>Architected an advanced reporting framework generating financial reconciliation, shift summaries, and operational analytics</li>
+                        <li>Spearheaded full-stack development using ReactJS and PHP Laravel, optimizing system performance by 40%</li>
+                        <li>Implemented data-driven optimizations that reduced operational bottlenecks by 30%</li>
+                    </ul>
+                </div>
+                
+                <div class="job neon-border">
+                    <h3>PATAN COLLEGE FOR PROFESSIONAL STUDIES, NEPAL</h3>
+                    <p><strong>JR. SOFTWARE DEVELOPER</strong> | DEC 2022 - DEC 2023</p>
+                    <ul>
+                        <li>Developed core modules for a college management system including admissions, academic tracking, and inventory management</li>
+                        <li>Enhanced system functionality through ReactJS/PHP integration, improving user experience metrics by 35%</li>
+                        <li>Collaborated on cross-functional teams to implement student lifecycle management features</li>
+                        <li>Optimized database queries reducing response times by 25% across critical modules</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2>// ACADEMIC_CREDENTIALS</h2>
+            <div class="section-content">
+                <div class="education-entry neon-border">
+                    <h3>BSC (HONS) COMPUTER SCIENCE AND SOFTWARE ENGINEERING</h3>
+                    <p>UNIVERSITY OF BEDFORDSHIRE | PCPS NEPAL | SEPT 2020 - JAN 2024</p>
+                    <ul>
+                        <li>Specialized in advanced software architecture and system design principles</li>
+                        <li>Completed intensive coursework in AI, mobile development, and database systems</li>
+                        <li>Graduated with honors in software engineering methodologies</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>// KEY_PROJECTS</h2>
+            <div class="section-content">
+                <div class="project neon-border">
+                    <h3>BABY CRY ANALYSER</h3>
+                    <ul>
+                        <li>Developed an innovative mobile application utilizing deepSVM algorithms for infant cry classification</li>
+                        <li>Implemented audio processing pipelines achieving 89% classification accuracy</li>
+                        <li>Designed intuitive UI/UX for parental monitoring and health insights</li>
+                    </ul>
+                </div>
+                
+                <div class="project neon-border">
+                    <h3>PARTNER (PERSONAL HEALTH RECORD)</h3>
+                    <ul>
+                        <li>Created a HIPAA-compliant health data management platform</li>
+                        <li>Engineered secure doctor-patient data sharing protocols with end-to-end encryption</li>
+                        <li>Integrated cross-platform accessibility with Flutter for iOS/Android deployment</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>// TECHNICAL_ARSENAL</h2>
+            <div class="section-content">
+                <h3>Core Competencies</h3>
+                <div class="skills">
+                    <span class="badge">Full-Stack Development</span>
+                    <span class="badge">System Architecture</span>
+                    <span class="badge">Data Analytics</span>
+                    <span class="badge">Performance Optimization</span>
+                    <span class="badge">Agile Methodologies</span>
+                </div>
+
+                <h3>Languages & Frameworks</h3>
+                <div class="languages">
+                    <span class="badge">ReactJS</span>
+                    <span class="badge">PHP Laravel</span>
+                    <span class="badge">Flutter</span>
+                    <span class="badge">Python</span>
+                    <span class="badge">Java</span>
+                    <span class="badge">SQL/NoSQL</span>
+                    <span class="badge">React Native</span>
+                    <span class="badge">Node.js</span>
+                </div>
+
+                <h3>Certifications</h3>
+                <div class="awards">
+                    <span class="badge">IBM Full Stack Developer</span>
+                    <span class="badge">Google UX Design</span>
+                    <span class="badge">HackerRank Java (Gold)</span>
+                    <span class="badge">DeepLearning.AI AI Specialist</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>CONNECT WITH ME TO BUILD THE FUTURE TOGETHER</p>
+        <p>© 2024 RITIK SHARMA | ALL SYSTEMS OPERATIONAL</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize particles.js
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#00f7ff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#00f7ff",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // Navigation dots functionality
+        const sections = document.querySelectorAll('section');
+        const dots = document.querySelectorAll('.nav-dot');
+
+        function updateActiveDot() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 300)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('data-section').toLowerCase() === current) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            window.scrollTo({
+                top: section.offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveDot);
+        window.addEventListener('load', updateActiveDot);
+
+        // Create floating 3D cubes
+        function createFloatingCubes() {
+            const cubes = document.querySelectorAll('.floating-cube');
+            
+            cubes.forEach((cube, index) => {
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ alpha: true });
+                renderer.setSize(100, 100);
+                cube.appendChild(renderer.domElement);
+                
+                const geometry = new THREE.BoxGeometry();
+                const edges = new THREE.EdgesGeometry(geometry);
+                const line = new THREE.LineSegments(
+                    edges,
+                    new THREE.LineBasicMaterial({ color: index === 1 ? 0xff00e4 : 0x00f7ff, linewidth: 2 })
+                );
+                scene.add(line);
+                
+                camera.position.z = 1.5;
+                
+                function animate() {
+                    requestAnimationFrame(animate);
+                    line.rotation.x += 0.005;
+                    line.rotation.y += 0.005;
+                    renderer.render(scene, camera);
+                }
+                
+                animate();
+            });
+        }
+
+        // Initialize after page load
+        window.addEventListener('load', () => {
+            setTimeout(createFloatingCubes, 500);
+        });
+    </script>
+</body>
+
+</html>
