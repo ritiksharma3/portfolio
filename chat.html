@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ritik Sharma - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #1f1c2c, #928dab);
+            color: #f0f0f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p,
+        header a {
+            font-size: 1.1rem;
+            color: #ddd;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.2rem;
+        }
+
+        header a:hover {
+            color: #00c6ff;
+            text-decoration: underline;
+        }
+
+        section {
+            padding: 3rem 1rem;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #00c6ff;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px dashed #00c6ff;
+        }
+
+        .section-content {
+            margin-bottom: 2.5rem;
+        }
+
+        .job,
+        .project,
+        .education-entry {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .skills,
+        .awards,
+        .languages {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .badge {
+            background: #0072ff;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: scale(1.05);
+            background: #00c6ff;
+        }
+
+        footer {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1.5rem;
+            font-size: 0.95rem;
+            color: #bbb;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Ritik Sharma</h1>
+        <div>
+            <p>Software Developer | ReactJS, PHP Laravel, Flutter, Python</p>
+        </div>
+        <div>
+            <p>Jaipur, Rajasthan | +91-9461714119</p>
+            <p>
+                <a href="mailto:mailing2ritik@gmail.com">📧 mailing2ritik@gmail.com</a>
+                |
+                <a href="https://www.linkedin.com/in/ritik-sharma-4753aa246/" target="_blank">🔗 LinkedIn</a>
+                |
+                <a href="https://github.com/ritiksharma3" target="_blank">💻 GitHub</a>
+            </p>
+        </div>
+    </header>
+
+    <section>
+        <h2>About Me</h2>
+        <div class="section-content">
+            <p>I'm a passionate Software Developer with a strong foundation in software development, data analysis, and
+                system design. I love building full-stack applications and mobile solutions that solve real-world
+                problems.</p>
+        </div>
+
+        <h2>Experience</h2>
+        <div class="section-content">
+            <div class="job">
+                <h3>Cinestar Pvt Ltd (BigMovies), Nepal</h3>
+                <p><strong>Software Developer</strong> (Dec 2023 - Present)</p>
+                <ul>
+                    <li>Developed cinema management software focusing on inventory tracking, daily operations, and event
+                        management for multiple audis.</li>
+                    <li>Led the integration of a comprehensive reporting system, generating shift
+                        summaries, financial reconciliation reports, and lamp management summaries
+                        and others.</li>
+                    <li>Managed both backend and frontend tasks using ReactJS and PHP (Laravel).</li>
+                    <li>Conducted data analysis to optimize operational processes and improve system
+                        performance.</li>
+                </ul>
+            </div>
+            <div class="job">
+                <h3>Patan College for Professional Studies, Nepal</h3>
+                <p><strong>Jr. Software Developer</strong> (Dec 2022 - Dec 2023)</p>
+                <ul>
+                    <li>Contributed to the development of a college management system, working on
+                        key modules including admissions, inventory, and academic management
+                        (student application, o
+
+                        er letters, admissions, subjects, specializations,
+
+                        activities, and sessions).</li>
+                    <li>Collaborated with cross-functional teams to enhance system functionality,
+                        focusing on improving the user experience through ReactJS and PHP
+                        development.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Education</h2>
+        <div class="section-content">
+            <div class="education-entry">
+                <p><strong>BSc (Hons) Computer Science and Software Engineering</strong></p>
+                <p>University of Bedfordshire, PCPS Nepal (Sept 2020 - Jan 2024)</p>
+                <p>
+                    Gained a strong foundation in software development, project management, advanced
+                    databases, mobile application development, and artificial intelligence.
+                </p>
+            </div>
+        </div>
+
+        <h2>Projects</h2>
+        <div class="section-content">
+            <div class="project">
+                <h4>Baby Cry Analyser</h4>
+                <p>Mobile app using deepSVM for classifying types of baby cries based on sound.</p>
+                <p>
+                    Developed a mobile app that interprets di
+                    erent types of baby cries using deepSVM
+                    for sound classification.
+                </p>
+            </div>
+            <div class="project">
+                <h4>Partner (Personal Health Record)</h4>
+                <p>App for secure health data sharing between patients and doctors.</p>
+                <p>
+                    Created an app that stores health data, enabling doctors and patients to access
+                    personal health records securely.
+                </p>
+            </div>
+        </div>
+
+        <h2>Skills</h2>
+        <div class="section-content skills">
+            <span class="badge">Software Development</span>
+            <span class="badge">Inventory Management</span>
+            <span class="badge">Data Analysis</span>
+            <span class="badge">Problem-Solving</span>
+            <span class="badge">Critical Thinking</span>
+            <span class="badge">Quick Learner</span>
+            <span class="badge">Hard Working</span>
+            <span class="badge">Yup, Smart Work also</span>
+        </div>
+
+        <h2>Awards & Certifications</h2>
+        <div class="section-content awards">
+            <span class="badge">Full Stack Development (IBM)</span>
+            <span class="badge">UI/UX Design (Google)</span>
+            <span class="badge">Hackerrank Java (Basic)</span>
+            <span class="badge">AI for Everyone (DeepLearning.AI)</span>
+        </div>
+
+        <h2>Languages & Frameworks</h2>
+        <div class="section-content languages">
+            <span class="badge">ReactJS</span>
+            <span class="badge">PHP Laravel</span>
+            <span class="badge">SQL</span>
+            <span class="badge">Java</span>
+            <span class="badge">Python</span>
+            <span class="badge">Flutter</span>
+            <span class="badge">React Native</span>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Ritik Sharma | Portfolio Website</p>
+    </footer>
+</body>
+
+</html>
